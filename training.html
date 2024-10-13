@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التدريب</title>
+    <style>
+        body {
+            background-color: #1a1a2e;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        button {
+            padding: 20px; 
+            margin: 10px;
+            font-size: 22px; 
+        }
+        #points {
+            border: 2px solid #fff;
+            padding: 10px;
+            display: inline-block;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>اختر نوع التدريب</h1>
+    <button onclick="startTraining('ones')">أسئلة أحاد</button>
+    <button onclick="startTraining('tens')">أسئلة عشرات</button>
+    <button onclick="startTraining('hundreds')">أسئلة مئات</button>
+    <button onclick="startTraining('thousands')">أسئلة ألوف</button>
+    
+    <button onclick="goBack()">رجوع</button>
+
+    <div id="questions" class="hidden">
+        <h2 id="question-text"></h2>
+        <input type="number" id="user-answer" placeholder="أدخل الإجابة هنا">
+        <button onclick="checkAnswer()">إرسال الإجابة</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let currentQuestion;
+        let correctAnswer;
+        let currentTrainingQuestions = [];
+        let currentQuestionIndex = 0;
+        let userPoints = 0; // النقاط الإجمالية
+
+        function startTraining(type) {
+            document.getElementById('questions').classList.remove('hidden');
+            generateTrainingQuestions(type);
+        }
+
+        function generateTrainingQuestions(type) {
+            currentTrainingQuestions = [];
+            for (let i = 0; i < 10; i++) {
+                let num1, num2;
+
+                switch (type) {
+                    case 'ones':
+                        num1 = Math.floor(Math.random() * 9) + 1;
+                        num2 = Math.floor(Math.random() * 9) + 1;
+                        break;
+                    case 'tens':
+                        num1 = Math.floor(Math.random() * 90) + 10;
+                        num2 = Math.floor(Math.random() * 90) + 10;
+                        break;
+                    case 'hundreds':
+                        num1 = Math.floor(Math.random() * 900) + 100;
+                        num2 = Math.floor(Math.random() * 900) + 100;
+                        break;
+                    case 'thousands':
+                        num1 = Math.floor(Math.random() * 9000) + 1000;
+                        num2 = Math.floor(Math.random() * 9000) + 1000;
+                        break;
+                }
+
+                correctAnswer = num1 + num2;
+                currentTrainingQuestions.push({ question: `${num1} + ${num2}`, answer: correctAnswer });
+            }
+            showNextTrainingQuestion();
+        }
+
+        function showNextTrainingQuestion() {
+            if (currentQuestionIndex < currentTrainingQuestions.length) {
+                document.getElementById('question-text').innerText = currentTrainingQuestions[currentQuestionIndex].question;
+            } else {
+                document.getElementById('questions').classList.add('hidden');
+                document.getElementById('result').innerText = 'تم الانتهاء من التدريب!';
+            }
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById('user-answer').value);
+            const result = document.getElementById('result');
+            if (userAnswer === currentTrainingQuestions[currentQuestionIndex].answer) {
+                result.innerText = 'إجابة صحيحة!';
+                updatePoints(10); // زيادة النقاط بمقدار 10
+            } else {
+                result.innerText = `إجابة خاطئة! الإجابة الصحيحة هي ${currentTrainingQuestions[currentQuestionIndex].answer}.`;
+            }
+            currentQuestionIndex++;
+            showNextTrainingQuestion();
+        }
+
+        function updatePoints(points) {
+            if (userPoints + points <= 100) { // التأكد من عدم تجاوز 100 نقطة
+                userPoints += points;
+                document.getElementById('points').innerText = `النقاط: ${userPoints}`;
+            } else {
+                document.getElementById('points').innerText = 'لقد وصلت إلى الحد الأقصى للنقاط اليومي (100 نقطة)';
+            }
+        }
+
+        function goBack() {
+            window.location.href = 'index.html'; // الرجوع إلى الصفحة الرئيسية
+        }
+    </script>
+</body>
+</html>

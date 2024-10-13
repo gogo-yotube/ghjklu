@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحدي</title>
+    <style>
+        body {
+            background-color: #1a1a2e;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        button {
+            padding: 20px; 
+            margin: 10px;
+            font-size: 22px; 
+        }
+    </style>
+</head>
+<body>
+    <h1>اختر نوع التحدي</h1>
+    <button onclick="startChallenge('ones')">تحدي أحاد</button>
+    <button onclick="startChallenge('tens')">تحدي عشرات</button>
+    <button onclick="startChallenge('hundreds')">تحدي مئات</button>
+    <button onclick="startChallenge('thousands')">تحدي ألوف</button>
+
+    <button onclick="goBack()">رجوع</button>
+
+    <script>
+        function startChallenge(type) {
+            localStorage.setItem('challengeType', type);
+            window.location.href = 'challenge.html'; // الانتقال إلى صفحة التحدي
+        }
+
+        function goBack() {
+            window.location.href = 'index.html'; // الرجوع إلى الصفحة الرئيسية
+        }
+    </script>
+</body>
+</html>

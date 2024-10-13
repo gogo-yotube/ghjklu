@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعلم الحساب الذهني</title>
+    <style>
+        body {
+            background-color: #1a1a2e;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        button {
+            padding: 20px; 
+            margin: 10px;
+            font-size: 22px; 
+        }
+        #points {
+            border: 2px solid #fff;
+            padding: 10px;
+            display: inline-block;
+            margin: 10px;
+        }
+        #footer {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>مرحباً بك في تعلم الحساب الذهني!</h1>
+    <div id="points">نقاط الإنجاز: 0</div>
+    
+    <h2>اختر نوع النشاط</h2>
+    <button onclick="startTraining()">التدريب</button>
+    <button onclick="startChallenge()">تحدي</button>
+    <button onclick="openUsage()">كيفية الاستخدام</button>
+    
+    <div id="footer">
+        <p>تم الصنع من قبل: محمد يوسف</p>
+        <p>حقوق النشر © 2024 جميع الحقوق محفوظة</p>
+    </div>
+
+    <script>
+        // استعادة النقاط من localStorage
+        let userPoints = parseInt(localStorage.getItem('userPoints')) || 0; 
+        document.getElementById('points').innerText = `نقاط الإنجاز: ${userPoints}`;
+
+        function startTraining() {
+            window.location.href = 'training.html'; // الانتقال إلى صفحة التدريب
+        }
+
+        function startChallenge() {
+            window.location.href = 'challenge-options.html'; // الانتقال إلى صفحة التحدي
+        }
+
+        function openUsage() {
+            window.location.href = 'usage.html'; // الانتقال إلى صفحة كيفية الاستخدام
+        }
+    </script>
+</body>
+</html>
